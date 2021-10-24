@@ -15,10 +15,10 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 });
 
 const updateBtn = document.querySelector('#update-row-btn');
-const searchBtn = document.querySelector('#search-btn');
+const searchBtn = document.querySelector('#search-cat-btn');
 
 searchBtn.onclick = function() {
-    const searchValue = document.querySelector('#search-input').value;
+    const searchValue = document.querySelector('#search-cat-input').value;
 
     fetch('http://localhost:5000/search/' + searchValue)
     .then(response => response.json())
