@@ -72,7 +72,7 @@ class DbService {
             });
             //console.log(insertId);
             const data = await this.getData(insertId);  
-            console.log(data); 
+            //console.log(data); 
             return data; 
         } catch (error) {
             console.log(error);
