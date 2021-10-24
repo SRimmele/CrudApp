@@ -34,8 +34,25 @@ class DbService {
                     resolve(results);
                 })
             });
-            console.log(response);
-            //return response;
+            //console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getData(id) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM user_tracker WHERE ID = ?;";
+
+                connection.query(query, [id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            //console.log(response);
+            return response;
         } catch (error) {
             console.log(error);
         }
@@ -44,21 +61,19 @@ class DbService {
 
     async insertNewName(name) {
         try {
-            //const dateAdded = new Date(); 
-            const insertId = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO user_tracker (Name, DateAdded) CHECK VALUES (?,?);";
+                const insertId = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO user_tracker (Name) VALUES (?);";
 
                 connection.query(query, [name] , (err, result) => {
                     if (err) reject(new Error(err.message));
+                    //console.log(result); 
                     resolve(result.insertId);
                 })
             });
-            console.log(insertID); 
-            // return {
-            //     id : insertId,
-            //     name : name,
-            //     dateAdded: dateAdded
-            // };
+            //console.log(insertId);
+            const data = await this.getData(insertId);  
+            console.log(data); 
+            return data; 
         } catch (error) {
             console.log(error);
         }
@@ -87,7 +102,7 @@ class DbService {
         try {
             id = parseInt(id, 10); 
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE names SET user_tracker = ? WHERE id = ?";
+                const query = "UPDATE user_tracker SET Name = ? WHERE ID = ?";
     
                 connection.query(query, [name, id] , (err, result) => {
                     if (err) reject(new Error(err.message));
